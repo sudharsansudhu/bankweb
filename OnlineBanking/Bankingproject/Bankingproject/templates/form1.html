@@ -1,0 +1,196 @@
+{% extends 'nav.html' %}
+{% block body %}
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<style>
+body{
+  font-family: Calibri, Helvetica, sans-serif;
+  background-color: pink;
+}
+.containerr {
+    padding: 50px;
+  background-color: lightblue;
+}
+
+input[type=text], input[type=password], textarea {
+  width: 100%;
+  padding: 15px;
+  margin: 5px 0 22px 0;
+  display: inline-block;
+  border: none;
+  background: #f1f1f1;
+}
+input[type=text]:focus, input[type=password]:focus {
+  background-color: orange;
+  outline: none;
+}
+ div {
+            padding: 10px 0;
+         }
+hr {
+  border: 1px solid #f1f1f1;
+  margin-bottom: 25px;
+}
+.registerbtn {
+  background-color: #4CAF50;
+  color: white;
+  padding: 16px 20px;
+  margin: 8px 0;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+  opacity: 0.9;
+}
+.registerbtn:hover {
+  opacity: 1;
+}
+.clearfix{
+  background-color: #4CAF50;
+  color: white;
+  padding: 16px 20px;
+  margin: 8px 0;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+  opacity: 0.9;
+  text:center;
+}
+.clearfix:hover{
+  opacity: 1;
+}
+</style>
+<script>
+var subjectObject = {
+  "kerala": {
+    " Kasaragod": ["Kumbla", "Bekal", "Kasaragod"],
+    " Kannur": ["Taliparamba", "Panapuzha", "Kannapuram"],
+    "Wayanad": ["Mananthavady", "Payyampally,", "Periya"],
+    "Kozhikode": ["Beypore ", "Chathamangalam", "Chelannur "],
+     "Malappuram": ["Edappal", "Maranchery", "Ponnani Nagaram"],
+     "Palakkad": ["Elapully", "palakkad", "chittur"],
+      "Thrissur": ["Adat", "Alappad", "Anjur"],
+       "Ernakulam": ["Petta", "Thripunithura", "Irumbanam"],
+    "Idukki": ["Adimaly", "Bisonvalley ", "Konnathady"],
+    "Kottayam": ["Aimanam", "Akalakunnam", "Arpookara"],
+    "Alappuzha": ["Cherthala", "Ambalappuzha", "Kuttanad"],
+    "Pathanamthitta": ["Adoor", "Angadickal", "Anicad"],
+    "Kollam": ["Adichanalloor ", " Chirakkara", "Elampalloor "],
+    "Thiruvananthapuram": ["Andoorkonam", "	Cheruvakkal", "	Ayiroopara"],
+
+
+
+
+  }
+
+}
+window.onload = function() {
+  var subjectSel = document.getElementById("subject");
+  var topicSel = document.getElementById("topic");
+  var chapterSel = document.getElementById("chapter");
+  for (var x in subjectObject) {
+    subjectSel.options[subjectSel.options.length] = new Option(x, x);
+  }
+  subjectSel.onchange = function() {
+    //empty Chapters- and Topics- dropdowns
+    chapterSel.length = 1;
+    topicSel.length = 1;
+    //display correct values
+    for (var y in subjectObject[this.value]) {
+      topicSel.options[topicSel.options.length] = new Option(y, y);
+    }
+  }
+  topicSel.onchange = function() {
+    //empty Chapters dropdown
+    chapterSel.length = 1;
+    //display correct values
+    var z = subjectObject[subjectSel.value][this.value];
+    for (var i = 0; i < z.length; i++) {
+      chapterSel.options[chapterSel.options.length] = new Option(z[i], z[i]);
+    }
+  }
+}
+</script>
+
+</head>
+<body>
+
+
+{% block content %}
+<form method="post" action="{% url 'nn' %}" >
+   {% csrf_token %}
+  <div class="containerr">
+  <center>  <h1>  Form </h1> </center>
+  <hr>
+  <label> Name </label>
+<input type="text" name="firstname" placeholder= "Enter your name" size="15" required />
+      <div>
+<label> Date of birth: </label><br>
+<input type="date" name="date" placeholder="dd/mm/yyyy"  /><br>
+</div>
+          <label> Age :</label><br>
+<input type="number" name="number" placeholder= "Enter your age" size="3" />
+      <div>
+<label>
+Gender :
+</label><br>
+<input type="radio" value="Male" name="gender"  > Male
+<input type="radio" value="Female" name="gender"> Female
+<input type="radio" value="Other" name="gender"> Other
+
+</div>
+       <label for="email"><b>Email</b></label>
+ <input type="text" placeholder="Enter Email" name="email" required>
+<div>
+    <label>
+Phone :
+</label>
+<input type="text" name="country code" placeholder="Country Code"  value="+91" size="2"/>
+<input type="text" name="phone" placeholder="phone no." size="10" required>
+Current Address :
+<textarea cols="80" rows="5" placeholder="Current Address" value="address" required>
+</textarea>
+
+State: <select name="subject" id="subject">
+    <option value="" selected="selected">Select subject</option>
+  </select>
+  <br><br>
+District: <select name="topic" id="topic">
+    <option value="" selected="selected">Please select subject first</option>
+  </select>
+  <br><br>
+Branch: <select name="chapter" id="chapter">
+    <option value="" selected="selected">Please select topic first</option>
+  </select>
+  <br><br>
+</div><br>
+      <div>
+Account type: <select name="">
+      <option value="">Select Account</option>
+      <option value="">Saving Account</option>
+      <option value="">current Account</option>
+       <
+  </select><br>
+          </div>
+      <div>
+      <label>
+Material provide :
+</label><br>
+<input type="checkbox" value="debit card" name="debit card" > debit card
+<input type="checkbox" value="credit card" name="credit card"> credit card
+<input type="checkbox" value="Other" name="gender"> cheque book
+</div>
+
+
+    <button type="submit" class="registerbtn" >Register</button>
+
+
+</form>
+
+
+</div>
+{% endblock %}
+</body>
+</html>
+{% endblock %}

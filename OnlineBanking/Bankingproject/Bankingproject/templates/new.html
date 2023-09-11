@@ -1,0 +1,56 @@
+{% extends 'nav.html' %}
+{% block body %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>new page</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+.containerr {
+  position: relative;
+  width: 100%;
+  max-width: auto;
+}
+
+.containerr img {
+  width: 100%;
+  height: auto;
+}
+
+.containerr .btn {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  background-color: #555;
+  color: white;
+  font-size: 16px;
+  padding: 12px 24px;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+  text-align: center;
+}
+
+.container .btn:hover {
+  background-color: black;
+}
+</style>
+</head>
+
+<body>
+
+<form method="post" action="{% url 'form1' %}" >
+ {% csrf_token %}
+<div class="containerr">
+  <img src="{% static 'images/pic_bd.jpg' %}" alt="Snow" style="width:100%">
+   <button class="btn">Button</button>
+</div>
+</form>
+
+</body>
+</html>
+{% endblock %}
